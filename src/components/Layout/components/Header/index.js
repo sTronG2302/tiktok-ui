@@ -3,14 +3,33 @@ import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { ImSpinner } from 'react-icons/im';
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
 import Tippy from '@tippyjs/react/headless';
 import React, { useEffect, useState } from 'react';
 import { Wrapper as PopperWrapper } from '../../../Popper';
 import AccountItem from '../../../AccountItem';
 import Button from '../../../Button';
+import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+import { FaEllipsisV, FaRegQuestionCircle, FaRegKeyboard } from 'react-icons/fa';
+import { IoLanguageSharp } from 'react-icons/io5';
+import Menu from '../../../Popper/Menu';
 
 const cx = classNames.bind(styles);
+
+const MENU_ITEMS = [
+    {
+        icon: <IoLanguageSharp />,
+        title: 'English',
+    },
+    {
+        icon: <FaRegQuestionCircle />,
+        title: 'Feedback and help',
+        to: '/feedback',
+    },
+    {
+        icon: <FaRegKeyboard />,
+        title: 'Keyboard shortcut',
+    },
+];
 
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
@@ -60,6 +79,12 @@ function Header() {
                 <div className={cx('actions')}>
                     <Button text>Upload</Button>
                     <Button primary>Log in</Button>
+
+                    <Menu items={MENU_ITEMS}>
+                        <button className={cx('more-btn')}>
+                            <FaEllipsisV />
+                        </button>
+                    </Menu>
                 </div>
             </div>
         </header>
