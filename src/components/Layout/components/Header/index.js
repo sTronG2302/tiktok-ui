@@ -3,14 +3,19 @@ import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { ImSpinner } from 'react-icons/im';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
+
 import React, { useEffect, useState } from 'react';
 import { Wrapper as PopperWrapper } from '../../../Popper';
 import AccountItem from '../../../AccountItem';
 import Button from '../../../Button';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-import { FaEllipsisV, FaRegQuestionCircle, FaRegKeyboard } from 'react-icons/fa';
-import { IoLanguageSharp } from 'react-icons/io5';
+import { FaEllipsisV, FaRegQuestionCircle, FaRegKeyboard, FaCloudUploadAlt } from 'react-icons/fa';
+import { CgProfile } from 'react-icons/cg';
+import { FaCoins } from 'react-icons/fa6';
+import { IoLanguageSharp, IoSettings, IoLogOut } from 'react-icons/io5';
 import Menu from '../../../Popper/Menu';
 
 const cx = classNames.bind(styles);
@@ -19,6 +24,20 @@ const MENU_ITEMS = [
     {
         icon: <IoLanguageSharp />,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    code: 'en',
+                    title: 'English',
+                },
+
+                {
+                    code: 'vi',
+                    title: 'Tieng Viet',
+                },
+            ],
+        },
     },
     {
         icon: <FaRegQuestionCircle />,
@@ -34,11 +53,47 @@ const MENU_ITEMS = [
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
 
+    const currentUser = true;
+
     useEffect(() => {
         setTimeout(() => {
             setSearchResult([]);
         }, 0);
     }, []);
+
+    // Handle logic
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                break;
+            default:
+        }
+    };
+
+    const userMenu = [
+        {
+            icon: <CgProfile />,
+            title: 'View profile',
+            to: '/@strg',
+        },
+        {
+            icon: <FaCoins />,
+            title: 'Get coins',
+            to: '/coins',
+        },
+        {
+            icon: <IoSettings />,
+            title: 'Settings',
+            to: '/settings',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <IoLogOut />,
+            title: 'Logout',
+            to: '/logout',
+            separate: true,
+        },
+    ];
 
     return (
         <header className={cx('wrapper')}>
@@ -47,7 +102,7 @@ function Header() {
                     <img src={images.logo} alt="TikTok"></img>
                 </div>
                 <div>
-                    <Tippy
+                    <HeadlessTippy
                         interactive
                         visible={searchResult.length > 0}
                         render={(attrs) => (
@@ -74,16 +129,35 @@ function Header() {
                                 <HiOutlineMagnifyingGlass />
                             </button>
                         </div>
-                    </Tippy>
+                    </HeadlessTippy>
                 </div>
                 <div className={cx('actions')}>
-                    <Button text>Upload</Button>
-                    <Button primary>Log in</Button>
-
-                    <Menu items={MENU_ITEMS}>
-                        <button className={cx('more-btn')}>
-                            <FaEllipsisV />
-                        </button>
+                    {currentUser ? (
+                        <>
+                            <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <FaCloudUploadAlt />
+                                </button>
+                            </Tippy>
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload</Button>
+                            <Button primary>Log in</Button>
+                        </>
+                    )}
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <img
+                                className={cx('user-avatar')}
+                                src="https://lh3.googleusercontent.com/ogw/ANLem4ajMdel4zcpbc6pkh2m7pp9O9rnxnuFZGcxJxVKJw=s32-c-mo"
+                                alt="Duc Trong"
+                            ></img>
+                        ) : (
+                            <button className={cx('more-btn')}>
+                                <FaEllipsisV />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>

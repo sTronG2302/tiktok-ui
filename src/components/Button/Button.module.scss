@@ -2,12 +2,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
-    font-weight: 700;
     min-width: 100px;
     padding: 9px 16px;
     border-radius: 4px;
-
+    font-size: 1.6rem;
+    font-weight: 700;
     cursor: pointer;
     background-color: var(--white);
     border: 1px solid transparent;
@@ -28,16 +27,10 @@
     margin-left: 8px;
 }
 
-.icon {
-    display: inline-block;
-    width: 24px;
-    text-align: center;
-}
-
 // Button types
 .rounded {
     border-radius: 999px;
-    box-shadow: 0 2px 8px rgb(0 0 0/6%);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
     border-color: rgba(22, 24, 35, 0.12);
 
     &:hover {
@@ -73,7 +66,7 @@
     }
 }
 
-// Disable
+// Disabled
 
 // Button sizes
 .small {
