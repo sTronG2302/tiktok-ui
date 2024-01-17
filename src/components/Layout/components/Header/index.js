@@ -12,11 +12,13 @@ import { Wrapper as PopperWrapper } from '../../../Popper';
 import AccountItem from '../../../AccountItem';
 import Button from '../../../Button';
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
-import { FaEllipsisV, FaRegQuestionCircle, FaRegKeyboard, FaCloudUploadAlt } from 'react-icons/fa';
+import { FaEllipsisV, FaRegQuestionCircle, FaRegKeyboard } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
 import { FaCoins } from 'react-icons/fa6';
 import { IoLanguageSharp, IoSettings, IoLogOut } from 'react-icons/io5';
 import Menu from '../../../Popper/Menu';
+import { InboxIcon, MessageIcon, UploadIcon } from '../../../Icons';
+import Image from '../../../Image';
 
 const cx = classNames.bind(styles);
 
@@ -136,7 +138,18 @@ function Header() {
                         <>
                             <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <FaCloudUploadAlt />
+                                    <UploadIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy delay={[0, 200]} content="Message" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon />
+                                    <span className={cx('badge')}>12</span>
                                 </button>
                             </Tippy>
                         </>
@@ -148,11 +161,11 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx('user-avatar')}
                                 src="https://lh3.googleusercontent.com/ogw/ANLem4ajMdel4zcpbc6pkh2m7pp9O9rnxnuFZGcxJxVKJw=s32-c-mo"
                                 alt="Duc Trong"
-                            ></img>
+                            />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FaEllipsisV />
