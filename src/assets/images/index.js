@@ -1,5 +1,5 @@
 const images = {
-    logo: require('./logo.svg').default,
+    logo: require('../images/logo.svg').default,
     noImage: require('../../assets/images/no-image.png'),
 };
 
